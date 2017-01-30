@@ -113,3 +113,20 @@ h1 {
     animation:fade 3000ms infinite;
     -webkit-animation:fade 3000ms infinite;
 }
+
+.list {
+    position: absolute;
+    padding-top: 60px;
+}
+
+input {
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid black;
+
+}
+
+ul {
+    width: 200px;
+    list-style-type: none;
+}

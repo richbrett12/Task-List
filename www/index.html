@@ -40,10 +40,31 @@
             <h1>Apache Cordova</h1>
             <div id="deviceready" class="blink">
                 <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device</p>
+                <p class="event received">Device connected</p>
+            </div>
+            <div class="list">
+                <form type="GET" action="/index.html">
+                    <ul id="fullTaskList">
+                        <li id="task-prototype">
+                            <label for="Task1">Task 1</label>
+                            <input type="text" name="Task1" id="Task1" />
+                        </li>
+                        <li>
+                            <label for="Task2">Task 2</label>
+                            <input type="text" name="Task2" id="Task2" />
+                        </li>
+                        <li>
+                            <label for="Task3">Task 3</label>
+                            <input type="text" name="Task3" id="Task3" />
+                        </li>
+                    </ul>
+                    <button type="button" id="add-btn">Add</button>
+                    <button>Submit</button>
+                </form>
             </div>
         </div>
         <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/Task.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
     </body>
 </html>
