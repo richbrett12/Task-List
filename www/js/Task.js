@@ -6,7 +6,7 @@ class Task {
 	// priority: how important this task is in relation to others
 	// list item: the actual DOM element
 // methods
-	// alert: alert user to complete task
+	// shouldAlert(): given a time frame, can we fit into it?
 	// edit description:
 	// edit time estimate:
 	// mark as done:
