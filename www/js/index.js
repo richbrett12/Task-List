@@ -46,11 +46,12 @@ var app = {
 app.initialize();
 
 
+var taskListContainer = document.getElementById('tasklist--container');
+var taskLists = [];
 
 document.getElementById('add-tasklist-btn').onclick = function() {
-    console.log("I'm an anonymous function!");
-    var taskListContainer = document.getElementById('tasklist--container');
     var taskList = new TaskList();
     taskList.appendTo(taskListContainer);
+    taskLists.push(taskList);
 }
 

@@ -15,13 +15,14 @@ class TaskList {
 
 		this.el = document.createElement('div');
 		this.el.className = "tasklist--wrapper";
-		var ul = document.createElement('ul');
-		ul.className = "tasklist";
-		this.el.appendChild(ul);
+		this.tasklist = document.createElement('ul');
+		this.tasklist.className = "tasklist";
+		this.el.appendChild(this.tasklist);
 		var button = document.createElement('button');
 		button.className = "addtask";
 		button.setAttribute('type', 'button');
 		button.innerHTML = "Add Task";
+		button.onclick = this.addTask.bind(this);
 		this.el.appendChild(button);
 	}
 // methods
@@ -30,8 +31,13 @@ class TaskList {
 	// remove a task
 	// remove all tasks marked as done (optional?)
 
-	addTask() {
-		// todo
+	addTask(fake_arg1, fake_arg2) {
+		// create a new task
+		var task = new Task();
+		this.tasks.push(task);
+
+		// append task to tasklist
+		task.appendTo(this.tasklist);
 	}
 
 	appendTo(node) {
