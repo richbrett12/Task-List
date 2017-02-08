@@ -31,9 +31,9 @@ class TaskList {
 	// remove a task
 	// remove all tasks marked as done (optional?)
 
-	addTask(fake_arg1, fake_arg2) {
+	addTask() {
 		// create a new task
-		var task = new Task();
+		var task = new Task(this);
 		this.tasks.push(task);
 
 		// append task to tasklist
@@ -42,6 +42,11 @@ class TaskList {
 
 	appendTo(node) {
 		node.appendChild(this.el);
+	}
+
+	deleteTask(task) {
+		var index = this.tasks.indexOf(task);
+		this.tasks.splice(index, 1);	
 	}
 
 	// able to pass a task around --> not sure how to implment this yet

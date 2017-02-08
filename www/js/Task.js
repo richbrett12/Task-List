@@ -1,12 +1,14 @@
 class Task {
-	constructor() {
+	constructor(parent) {
 		// initialize variables
+		this.taskList = parent;
 		this.time = 0;
 		this.isComplete = false;
 		this.priority = 0;
 		this.proto = `
 			<li class="task">
 				<input type="text" />
+				<button type="button" class="delete">Delete</button>
 			</li>
 		`
 		// create element
@@ -14,6 +16,12 @@ class Task {
 		this.el.className = "task";
 		this.input = document.createElement('input');
 		this.el.appendChild(this.input);
+		var button = document.createElement('button');
+		button.className = "deletetask";
+		button.setAttribute('type', 'button');
+		button.innerHTML = "Delete";
+		button.onclick = this.deleteTask.bind(this);
+		this.el.appendChild(button);
 	}
 // data
 	// description: description of task
@@ -23,10 +31,15 @@ class Task {
 	// list item: the actual DOM element
 // methods
 	// shouldAlert(): given a time frame, can we fit into it?
-	// edit description:
 	// edit time estimate:
 	// mark as done:
 	// mark as undone:	
+
+	deleteTask() {
+		this.el.remove();
+		this.taskList.deleteTask(this);
+	}
+
 	appendTo(node) {
 		node.appendChild(this.el);
 	}
