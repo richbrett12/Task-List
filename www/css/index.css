@@ -20,6 +20,11 @@
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
 }
 
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
 body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
@@ -43,6 +48,11 @@ body {
     padding:0px;
     text-transform:uppercase;
     width:100%;
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Portrait layout (default) */
@@ -115,18 +125,51 @@ h1 {
 }
 
 .list {
-    position: absolute;
-    padding-top: 60px;
+    margin: auto;
 }
 
 input {
     background-color: transparent;
     border: none;
     border-bottom: 2px solid black;
+    text-align: center;
 
+}
+
+input[type=number] {
+    border-bottom: 2px dotted black;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0; 
 }
 
 ul {
     width: 200px;
     list-style-type: none;
+}
+
+.tasklist--wrapper {
+    display: inline-block;
+    border-style: groove;
+    width: 300px;
+}
+
+#tasklist--container {
+    margin: auto;
+}
+
+#add-tasklist-btn {
+    background-color: red;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 12px;
+    color: white;
+    position: relative;
+}
+
+.time-estimate {
+    width: 30px;
 }

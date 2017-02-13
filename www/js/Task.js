@@ -2,20 +2,29 @@ class Task {
 	constructor(parent) {
 		// initialize variables
 		this.taskList = parent;
-		this.time = 0;
-		this.isComplete = false;
 		this.priority = 0;
 		this.proto = `
 			<li class="task">
+				<input type="checkbox" />
 				<input type="text" />
+				<input type="number" placeholder="time" class="time-estimate" />
 				<button type="button" class="delete">Delete</button>
 			</li>
-		`
+		`;
+
 		// create element
 		this.el = document.createElement('li');
 		this.el.className = "task";
+		this.checkbox = document.createElement('input');
+		this.checkbox.setAttribute('type', 'checkbox');
+		this.el.appendChild(this.checkbox);
 		this.input = document.createElement('input');
 		this.el.appendChild(this.input);
+		this.timeEstimate = document.createElement('input');
+		this.timeEstimate.className = 'time-estimate';
+		this.timeEstimate.setAttribute('type', 'number');
+		this.timeEstimate.setAttribute('placeholder', 'time');
+		this.el.appendChild(this.timeEstimate);
 		var button = document.createElement('button');
 		button.className = "deletetask";
 		button.setAttribute('type', 'button');
@@ -24,14 +33,10 @@ class Task {
 		this.el.appendChild(button);
 	}
 // data
-	// description: description of task
-	// time estimate: how long task will take to do
 	// isComplete: is the task finished
 	// priority: how important this task is in relation to others
-	// list item: the actual DOM element
 // methods
 	// shouldAlert(): given a time frame, can we fit into it?
-	// edit time estimate:
 	// mark as done:
 	// mark as undone:	
 
@@ -50,5 +55,25 @@ class Task {
 
 	setDescription(val) {
 		this.input.value = val;
+	}
+
+	getTimeEstimate() {
+		return this.timeEstimate.value;
+	}
+
+	setTimeEstimate(val) {
+		this.timeEstimate.value = val;
+	}
+
+	isComplete() {
+		return this.checkbox.checked;
+	}
+
+	markAsComplete() {
+		this.checkbox.checked = true;
+	}
+
+	markAsIncomplete() {
+		this.checkbox.checked = false;
 	}
 }
