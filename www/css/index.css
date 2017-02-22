@@ -53,6 +53,7 @@ body {
     flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 /* Portrait layout (default) */
@@ -136,6 +137,20 @@ input {
 
 }
 
+.tasklist {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.tasklist-title {
+    border: 1px solid gray;
+    background-color: #666666;
+    width: 298px;
+    color: white;
+    font-family: georgia;
+    font-size: 22px;
+}
+
 input[type=number] {
     border-bottom: 2px dotted black;
 }
@@ -144,6 +159,11 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0; 
+}
+
+input:checked {
+    color: grey;
+    text-decoration: line-through;
 }
 
 ul {
@@ -158,11 +178,12 @@ ul {
 }
 
 #tasklist--container {
-    margin: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 #add-tasklist-btn {
-    background-color: red;
+    background-color: skyblue;
     border: none;
     padding: 12px 28px;
     border-radius: 12px;
@@ -172,4 +193,31 @@ ul {
 
 .time-estimate {
     width: 30px;
+}
+
+.task {
+    white-space: nowrap;
+}
+
+.delete-button {
+    background-color: red;
+    color: white;
+}
+
+.btn-wrapper {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+}
+
+.addtask {
+
+}
+
+.deletetask {
+    background-color: red;
+    border-radius: 50%;
+    font-size: 11px;
+    color: white;
+
 }

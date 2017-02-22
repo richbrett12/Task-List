@@ -17,6 +17,12 @@ class Task {
 		this.el.className = "task";
 		this.checkbox = document.createElement('input');
 		this.checkbox.setAttribute('type', 'checkbox');
+		this.checkbox.onclick = this.toggleComplete1.bind(this);
+		// remember to bind this to the checkbox
+		// i.e., this.checkbox.onclick = myFunction.bind(this);
+		// create a new function called toggleComplete();
+		// add a click handler to your checkbox
+		// that calls markAsComplete() or markAsIncomplete() appropriately
 		this.el.appendChild(this.checkbox);
 		this.input = document.createElement('input');
 		this.el.appendChild(this.input);
@@ -28,27 +34,37 @@ class Task {
 		var button = document.createElement('button');
 		button.className = "deletetask";
 		button.setAttribute('type', 'button');
-		button.innerHTML = "Delete";
+		button.innerHTML = "X";
 		button.onclick = this.deleteTask.bind(this);
 		this.el.appendChild(button);
 	}
-// data
-	// isComplete: is the task finished
-	// priority: how important this task is in relation to others
-// methods
-	// shouldAlert(): given a time frame, can we fit into it?
-	// mark as done:
-	// mark as undone:	
 
 	deleteTask() {
 		this.el.remove();
-		this.taskList.deleteTask(this);
+		this.taskList.removeTask(this);
 	}
 
 	appendTo(node) {
 		node.appendChild(this.el);
 	}
 
+	shouldAlert(time) {
+		if (time > this.timeEstimate.value) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	toggleComplete1() {
+		if (this.checkbox.checked === true) {
+			this.markAsComplete();
+		} else {
+			this.markAsIncomplete();
+		}
+	}
+
+	/* getters and setters */
 	getDescription() {
 		return this.input.value;
 	}
@@ -70,10 +86,35 @@ class Task {
 	}
 
 	markAsComplete() {
+		// find elements you want to change classes
+		// change them classes, boi
+		this.input.style.color = "gray";
+		this.input.style.textdecoration = "line-through";
 		this.checkbox.checked = true;
 	}
 
 	markAsIncomplete() {
+		// find elements you want to change classes
+		// change them classes, boi
+		this.input.style.color = "black";
 		this.checkbox.checked = false;
 	}
+
+	getPriority() {
+		return this.el.style.order;
+	}
+
+	setPriority(val) {
+		this.el.style.order = val;
+	}
+
+	getParent() {
+		return this.taskList;
+	}
+
+	setParent(parent) {
+		this.taskList = parent;
+	}
+
 }
+
