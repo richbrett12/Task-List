@@ -19,12 +19,14 @@ class TaskList {
 
 		this.el = document.createElement('div');
 		this.el.className = "tasklist--wrapper";
+		// this.el.ondrop = this.handleDrop.bind(this);
 		this.title = document.createElement('input');
 		this.title.className = "tasklist-title";
 		this.title.setAttribute('placeholder', "Enter Title");
 		this.el.appendChild(this.title);
 		this.tasklist = document.createElement('ul');
 		this.tasklist.className = "tasklist";
+		this.tasklist.addEventListener('drop', this.handleDrop.bind(this));
 		this.el.appendChild(this.tasklist);
 		var btnWrapper = document.createElement('div');
 		btnWrapper.className = "btn-wrapper";
@@ -54,19 +56,28 @@ class TaskList {
 			// for now, take the first one
 
     // postcondition: promises to set the parent of the task to this tasklist
-	addTask(event, task) {
+    // change this to take only one parameter
+	addTask(event, task, index) {
 		if (!task) {
 			task = new Task(this);
 		} else {
 			task.setParent(this);
 		}
-		this.tasks.push(task);
+
+		if (index === undefined) {
+			index = this.tasks.length;
+		}
+		var priority = this.tasks.length;
+		task.setPriority(priority);
+		this.tasks.splice(index, 0, task);
 		task.appendTo(this.tasklist);
+		this.updatePriorities();
 	}
 
 	removeTask(task) {
 		var index = this.tasks.indexOf(task);
-		this.tasks.splice(index, 1);	
+		this.tasks.splice(index, 1);
+		this.updatePriorities();
 	}
 
 	deleteTaskList() {
@@ -85,39 +96,52 @@ class TaskList {
 		this.title.value = val;
 	}
 
-/*
+
 	getTaskToAlert(time) {
-		var priority = 0;
-		var i = 0;
+		if (this.tasks.length == 0) {
+			return null;
+		}
+
+		var priority;
 		var target = -1;
-		do {
-			if (taskLists[0].tasks[i].shouldAlert(time) === true) {
-				if (taskLists[0].tasks[i].priority > priority) {
-					priority = taskLists[0].tasks[i].priority;
+		for(var i = 0; i < this.tasks.length; i++) {
+			if (this.tasks[i].shouldAlert(time) === true) {
+				if (priority === undefined || this.tasks[i].getPriority() < priority) {
+					priority = this.tasks[i].getPriority();
 					target = i;
 				}
 			}
-
-			i++;
-
-		} while( i <= number of tasks );
-		// get the first task that . . .
-			// shoudl be alerted
-			// AND
-			// has the highest priority
-		// loop through your tasks
-		// determine whether if should be alerte
-d		// if it should, get the task and save it
-		// sort list of tasks by priority ascending
-		// return first task
-		return tasksToAlert.shift();
-	}
-*/
-
-	moveTask(task, tasklist) {
-		this.removeTask(task);
-		tasklist.addTask(null, task);
+		}
+		if (target === -1) {
+			return null;
+		}
+		return this.tasks[target];
 	}
 
-	// able to pass a task around --> not sure how to implment this yet
+	handleDrop(event) {
+		if (event.stopPropagation) {
+			event.stopPropagation();
+		}
+
+		// find the task we're trying to replace
+		var li = event.path[1]; // path is an array full of DOM nodes that have received the event from the bottom-up
+		var taskToReplace = this.tasks.find(function(task) {
+			return task.el == li;
+		});
+
+		if (taskToReplace === draggedTask) {
+			return;
+		}
+
+		// set draggedTask's priority to be higher than the taskToReplace
+		var newPriority = +taskToReplace.getPriority();
+		draggedTask.moveTo(this, newPriority);
+	}
+	
+	updatePriorities() {
+		// Set each tasks priority based of position in tasks array
+		for (var i = 0; i < this.tasks.length; i++) {
+			this.tasks[i].setPriority(i);
+		}
+	}
 }

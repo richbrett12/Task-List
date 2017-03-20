@@ -2,7 +2,7 @@ class Task {
 	constructor(parent) {
 		// initialize variables
 		this.taskList = parent;
-		this.priority = 0;
+		// this.priority = 0;
 		this.proto = `
 			<li class="task">
 				<input type="checkbox" />
@@ -14,15 +14,15 @@ class Task {
 
 		// create element
 		this.el = document.createElement('li');
+		this.el.setAttribute('draggable', 'true');
+		// you need to add an event handler for the dragstart event
+		// that handler should do . . . what?
+		this.el.ondragstart = this.handleDragStart.bind(this);
 		this.el.className = "task";
+		this.el.style.order = 0;
 		this.checkbox = document.createElement('input');
 		this.checkbox.setAttribute('type', 'checkbox');
 		this.checkbox.onclick = this.toggleComplete1.bind(this);
-		// remember to bind this to the checkbox
-		// i.e., this.checkbox.onclick = myFunction.bind(this);
-		// create a new function called toggleComplete();
-		// add a click handler to your checkbox
-		// that calls markAsComplete() or markAsIncomplete() appropriately
 		this.el.appendChild(this.checkbox);
 		this.input = document.createElement('input');
 		this.el.appendChild(this.input);
@@ -48,8 +48,13 @@ class Task {
 		node.appendChild(this.el);
 	}
 
+	moveTo(tasklist, index) {
+		this.taskList.removeTask(this);
+		tasklist.addTask(null, this, index);
+	}
+
 	shouldAlert(time) {
-		if (time > this.timeEstimate.value) {
+		if (this.getTimeEstimate() <= time) {
 			return true;
 		} else {
 			return false;
@@ -63,6 +68,7 @@ class Task {
 			this.markAsIncomplete();
 		}
 	}
+
 
 	/* getters and setters */
 	getDescription() {
@@ -114,6 +120,15 @@ class Task {
 
 	setParent(parent) {
 		this.taskList = parent;
+	}
+
+	handleDragStart(event) {
+		if (event.stopPropagation) {
+			event.stopPropagation();
+		}
+		event.dataTransfer.setData('text/html', null);
+		// maybe add some cool CSS effects
+		draggedTask = this;
 	}
 
 }

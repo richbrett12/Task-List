@@ -48,6 +48,7 @@ app.initialize();
 
 var taskListContainer = document.getElementById('tasklist--container');
 var taskLists = [];
+var draggedTask = null;
 
 document.getElementById('add-tasklist-btn').onclick = function() {
     var taskList = new TaskList();
@@ -55,3 +56,11 @@ document.getElementById('add-tasklist-btn').onclick = function() {
     taskLists.push(taskList);
 }
 
+function runTests() {
+    var tester = new TaskListTestSuite();
+    tester.run();
+    var test = new TaskTest();
+    test.run();
+}
+
+    
