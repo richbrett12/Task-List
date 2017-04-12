@@ -137,9 +137,36 @@ input {
 
 }
 
+.time {
+    min-height: 100px;
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.time--border {
+    border: 1px solid black;
+    border-style: groove;
+    background-color: #ABEBC6;
+}
+
+h3 {
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+
+.time--container {
+
+}
+
 .tasklist {
     display: flex;
     flex-flow: column nowrap;
+    justify-content: flex-start;
+    width: 260px;
+    min-height: 20px;
 }
 
 .tasklist-title {
@@ -172,7 +199,9 @@ ul {
 }
 
 .tasklist--wrapper {
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     border-style: groove;
     width: 300px;
 }
@@ -197,6 +226,7 @@ ul {
 
 .task {
     white-space: nowrap;
+    width: 300px;
 }
 
 .delete-button {

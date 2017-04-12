@@ -44,17 +44,6 @@ class TaskList {
 		deleteButton.onclick = this.deleteTaskList.bind(this);
 		btnWrapper.appendChild(deleteButton);
 	}
-// methods
-	// alert: alert user to complete task
-	// update priorities --> not sure how we're going to implement this yet
-
-	// remove all tasks marked as done
-			// implement this function as well
-	// getTaskToAlert()
-			// run through all of tasks
-			// figure out which ones we should alert
-			// for now, take the first one
-
     // postcondition: promises to set the parent of the task to this tasklist
     // change this to take only one parameter
 	addTask(event, task, index) {
